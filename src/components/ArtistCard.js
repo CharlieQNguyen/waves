@@ -3,7 +3,7 @@ function ArtistCard({artist}) {
         <div className="card justify-content-center" style={{width: '10rem'}}>
             <img src={artist.images[0].url} alt={artist.name} className="rounded" />
             <div className="card-body">
-                <h5 className="card-title">{artist.name}</h5>
+                <h6 className="card-subtitle">{artist.name}</h6>
             </div>
         </div>
     )
