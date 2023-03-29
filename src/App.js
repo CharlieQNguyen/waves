@@ -1,5 +1,6 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react"
+
 import Albums from './components/Albums';
 import Artists from "./components/Artists";
 import Genres from './components/Genres';
@@ -7,17 +8,49 @@ import Home from "./components/Home";
 import Songs from "./components/Songs";
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route exact path="/Albums" element={<Albums />} />
-        <Route exact path="/Artists" element={<Artists />} />
-        <Route exact path="/Genres" element={<Genres />} />
-        <Route exact path="/Home" element={<Home />} />
-        <Route exact path="/Songs" element={<Songs />} />
-      </Routes>
-    </Router>
-  );
+    // Spotify API
+    const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID
+    const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI
+    const AUTH_ENDPOINT = process.env.REACT_APP_SPOTIFY_AUTH_ENDPOINT
+    const RESPONSE_TYPE = process.env.REACT_APP_SPOTIFY_RESPONSE_TYPE
+
+    const [token, setToken] = useState("")
+
+    useEffect(() => {
+        const hash = window.location.hash
+        let token = window.localStorage.getItem("token")
+
+        if(!token && hash) {
+            token = hash.substring(1).split("&").find(element => element.startsWith("access_token")).split("=")[1]
+
+            window.location.hash = ""
+            window.localStorage.setItem("token", token)
+        }
+
+        setToken(token)
+    }, [])
+
+    const logout = () => {
+        setToken("")
+        window.localStorage.removeItem("token")
+    }
+
+    return (
+        <Router>
+            {!token ? 
+                <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
+                : // else if no token
+                <button onClick={logout}>Logout</button> }
+
+            <Routes>
+                <Route exact path="/Albums" element={<Albums />} />
+                <Route exact path="/Artists" element={<Artists />} />
+                <Route exact path="/Genres" element={<Genres />} />
+                <Route exact path="/" element={<Home />} />
+                <Route exact path="/Songs" element={<Songs />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
