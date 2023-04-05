@@ -1,8 +1,23 @@
-.topAlbums {
-    color: red;
+.title {
+    color: #fff;
+    padding-top: 50px;
 }
 
 .card {
-    background-color: rgb(100, 71, 71);
+    background-color: rgb(75, 112, 95);
     width: 15rem;
+    border: solid rgb(11, 177, 135);
+}
+
+body{
+    background-color: black;
+}
+
+.img-fluid{
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.card-title, .card-text{
+    text-align: center;
 }

@@ -4,11 +4,11 @@ function AlbumCard() {
 
 <div className="container">  
 <div className="card cardSection justfy-content-center">
-  <img src="..." className="img-fluid card-img-top" alt="..."/>
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/Adele_-_21.png/220px-Adele_-_21.png" className="img-fluid card-img-top" alt="..."/>
   <div className="card-body">
-    <h5 className="card-title">Card title</h5>
-    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <button className="btn btn-primary">Go somewhere</button>
+    <h5 className="card-title">Adele</h5>
+    <p className="card-text">21</p>
+  
   </div>
 </div>
 </div>
