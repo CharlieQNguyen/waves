@@ -1,19 +1,25 @@
 import React from "react";
+import "./Styles.css";
+import AlbumCard from "./AlbumCard";
 
 const Albums = () => {
   return(
     <div className="container">
       <div className="topAlbums">
-        <h3>Top Albums of 2023</h3> 
+        <h3>Today's Top Albums</h3> 
+        <AlbumCard />
         </div>
         <div className="hiphopAlbums">
-        <h3>Top Hip-Hop Albums of 2023</h3> 
+        <h3>Hip-Hop</h3> 
         </div>
-        <div className="popAlbums">
-        <h3>Top Pop Albums of 2023</h3> 
+        <div className="countryAlbums">
+        <h3>Country</h3> 
         </div>
         <div className="rnbAlbums">
-        <h3>Top RnB Albums of 2023</h3> 
+        <h3>Rhythm and Blues </h3> 
+        </div>
+        <div className="popAlbums">
+        <h3>Pop</h3> 
         </div>
     </div>
   )
