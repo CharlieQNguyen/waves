@@ -1,3 +1,8 @@
 .topAlbums {
     color: red;
 }
+
+.card {
+    background-color: rgb(100, 71, 71);
+    width: 15rem;
+}
