@@ -1,3 +1,24 @@
-.button {
-  height: 400px;
+.title {
+  color: #fff;
+  padding-top: 50px;
+}
+
+.card {
+  background-color: rgb(112, 77, 75);
+  width: 15rem;
+  border: solid rgb(177, 11, 11);
+}
+
+body {
+  background-color: black;
+}
+
+.img-fluid {
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.card-title,
+.card-text {
+  text-align: center;
 }
