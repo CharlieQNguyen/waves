@@ -1,5 +1,5 @@
 .title {
-  color: #fff;
+  color: #e6dddd;
   padding-top: 50px;
 }
 
@@ -21,8 +21,4 @@ body {
 .card-title,
 .card-text {
   text-align: center;
-}
-
-li {
-  list-style-type: none;
 }
