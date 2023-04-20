@@ -1,29 +1,63 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Albums from './components/Albums';
+import { useState, useEffect } from "react";
+
+import Albums from "./components/Albums";
 import Artists from "./components/Artists";
-import Genres from './components/Genres';
+import Genres from "./components/Genres";
 import Home from "./components/Home";
 import Songs from "./components/Songs";
 
 function App() {
-  
-const CLIENT_ID = "0283f12116d640dc8c380e85e158b619"
-const REDIRECT_URI = "http://localhost:3000"
-const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-const RESPONSE_TYPE = "token"
+  // Spotify API
+  const CLIENT_ID = "0283f12116d640dc8c380e85e158b619";
+  const REDIRECT_URI = "http://localhost:3000";
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+  const RESPONSE_TYPE = "token";
 
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    let token = window.localStorage.getItem("token");
+
+    if (!token && hash) {
+      token = hash
+        .substring(1)
+        .split("&")
+        .find((element) => element.startsWith("access_token"))
+        .split("=")[1];
+
+      window.location.hash = "";
+      window.localStorage.setItem("token", token);
+    }
+
+    setToken(token);
+  }, []);
+
+  const logout = () => {
+    setToken("");
+    window.localStorage.removeItem("token");
+  };
 
   return (
     <Router>
-
-<a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
+      {!token ? (
+        <a
+          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+        >
+          Login to Spotify
+        </a>
+      ) : (
+        // else if no token
+        <button onClick={logout}>Logout</button>
+      )}
 
       <Routes>
         <Route exact path="/Albums" element={<Albums />} />
         <Route exact path="/Artists" element={<Artists />} />
         <Route exact path="/Genres" element={<Genres />} />
-        <Route exact path="/Home" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route exact path="/Songs" element={<Songs />} />
       </Routes>
     </Router>
