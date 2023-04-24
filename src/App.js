@@ -45,15 +45,19 @@ function App() {
     setToken("");
     window.localStorage.removeItem("token");
   };
-    return (
-        <Router>
-            {!token ? 
-                <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
-                : // else if no token
-                <button onClick={logout}>Logout</button> }
-
   return (
     <Router>
+      {!token ? (
+        <a
+          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+        >
+          Login to Spotify
+        </a>
+      ) : (
+        // else if no token
+        <button onClick={logout}>Logout</button>
+      )}
+
       <Routes>
         <Route exact path="/Albums" element={<Albums />} />
         <Route exact path="/Artists" element={<Artists />} />
