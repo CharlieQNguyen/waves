@@ -16,31 +16,35 @@ import {
 } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
-const CLIENT_ID = "9bf47149b11f47aa8528dc07bdf03beb";
-const CLIENT_SECRET = "f7ec70bb972848b189ca56b357ee41db";
-
 function App() {
+  const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+  const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
 
-  useEffect(() => {
-    // API Acces Token
-    var authParameters = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body:
-        "grant_type=client_credentials&client_id=" +
-        CLIENT_ID +
-        "&client_secret=" +
-        CLIENT_SECRET,
-    };
+  const [token, setToken] = useState("");
 
-    fetch("https://accounts.spotify.com/api/token", authParameters)
-      .then((result) => result.json())
-      .then((data) => setAccessToken(data.access_token));
+  useEffect(() => {
+    const hash = window.location.hash;
+    let token = window.localStorage.getItem("token");
+
+    if (!token && hash) {
+      token = hash
+        .substring(1)
+        .split("&")
+        .find((element) => element.startsWith("access_token"))
+        .split("=")[1];
+
+      window.location.hash = "";
+      window.localStorage.setItem("token", token);
+    }
+
+    setToken(token);
   }, []);
+  const logout = () => {
+    setToken("");
+    window.localStorage.removeItem("token");
+  };
 
   return (
     <Router>
