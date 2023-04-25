@@ -19,9 +19,9 @@ import { useState, useEffect } from "react";
 function App() {
   const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
   const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-  const AUTH_ ENDPOINT = process.env.AUTH_ENDPOINT;
-  const RESPONSE_TYPE = process.env.RESPONSE_TYPE;
-  const REDIRECT_URI = process.env.REDIRECT_URI;
+  const AUTH_ENDPOINT = process.env.REACT_APP_SPOTIFY_AUTH_ENDPOINT;
+  const RESPONSE_TYPE = process.env.REACT_APP_SPOTIFY_RESPONSE_TYPE;
+  const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
 
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
